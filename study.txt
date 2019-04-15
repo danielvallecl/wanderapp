@@ -1,0 +1,26 @@
+
+App Online
+
+02 means unspecified manufacturer.
+
+TCP-IP Protocol
+
+Bytes / Bits
+
+r - read only access. Pointer is positioned at start of file.
+r+ - read and write access. Pointer is positioned at start of file.
+w - write only access. Pointer is positioned at start of file.
+w+ - read and write access. Pointer is positioned at start of file.
+a - write only access. Pointer is positioned at end of file.
+a+ - read and write access. Pointer is positioned at end of file.
+b - Binary File Mode.
+
+r completely overwrites and a appends and adds information.
+
+aFile = File.new('input.txt', 'r+')     r+ gives read, write and append access and created a file if it doesn't previously exist.
+if aFile
+   aFile.syswrite("ABCDEF")
+   aFile.each_byte {|ch| putc ch; putc ?. }
+else
+   puts "Unable to open file!"
+end

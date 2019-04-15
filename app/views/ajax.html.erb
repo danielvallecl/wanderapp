@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<head>
+  <title>Ajax Request</title>
+</head>
+
+<body>
+
+  <h1>Ajax Request</h1>
+
+  <button id="button">Get File</button>
+
+  <div id="text">
+
+  </div>
+
+  <script type="text/javascript">
+
+  var buttonclick = document.getElementById("button");
+    buttonclick.addEventListener("click", loadText());
+
+    function loadText() {
+      var xmlhandler = new XMLHttpRequest();
+      console.log(xmlhandler);
+      xmlhandler.onload = function() {
+        if (xmlhandler.status == 200) {
+          document.getElementById("text").innerHTML = xmlhandler.responseText;
+        } else {
+          if (xmlhandler.status == 404) {
+            console.log("File not Found");
+          }
+        }
+      }
+      xmlhandler.open('GET', 'ajax.txt', true)      /*true means asynchronous.*/
+      xmlhandler.send();
+      // 0 = Request no Initialized
+      // 1 = Server Connection Established
+      // 2 = Request Received
+      // 3 = Processing Request
+      // 4 = Request Finished and Response is Ready
+    }
+
+  </script>
+
+</body>
+
+</html>

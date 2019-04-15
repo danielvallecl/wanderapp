@@ -1,0 +1,32 @@
+
+<% flash.each do |key, value| %>
+    <div class="row col-12 alert alert-warning alert-dismissible fade show" id="mainalert" role="alert" style="z-index: 3;">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+        <strong><%= value %></strong>
+    </div>
+  <% end %>
+
+<!-- If coming from "My Events" link render it accordingly  -->
+
+<% if params['from'] == 'myevents' %>
+    <h2 class="text-center">Your Upcoming Events</h2>
+
+    <%= render 'events/event', obj: @user_events, mapoff: false %>
+
+    <div class="row justify-content-center col-12 mt-5">
+      <%= will_paginate(@user_events, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
+    </div>
+
+    <% if logged_in? && current_user.admin? %>
+
+    <% end %>
+
+<!-- Else render "Account"  -->
+
+<% else params['from'] == 'myaccount'%>
+
+  <%= render 'form', user: @user %>
+
+<% end %>

@@ -1,0 +1,35 @@
+
+
+<% flash.each do |key, value| %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+        <strong><%= value %></strong>
+    </div>
+<% end %>
+
+<% if !logged_in? %>
+  <div class="container field col-md-5 col-11 mt-3 login_form justify-content-center">
+    <h1 class="text-center" id="login">Log In</h1>
+
+    <%= form_for(:session, :html => {class: 'form-horizontal', role: 'form'}, url: login_path) do |form| %>
+
+      <div class="form-row justify-content-center">
+        <div class="form-group col-md-6">
+          <%= form.email_field :email, id: :user_email, placeholder: "Email", class: "form-control form-rounded", autofocus: true %>
+        </div>
+      </div>
+
+      <div class="form-row justify-content-center">
+        <div class="form-group col-md-6">
+          <%= form.password_field :password, id: :user_password_digest, placeholder: "Password", autocomplete: "off", class: "form-control form-rounded" %>
+        </div>
+      </div>
+
+      <div class="form-row justify-content-center">
+        <%= form.submit 'Submit', class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

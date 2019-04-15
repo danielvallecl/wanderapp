@@ -1,0 +1,44 @@
+
+<!-- Move this to JS repo -->
+<h1>I am About</h1>
+
+<button id="button">Click Me</button>
+
+<div id="text">
+
+</div>
+
+<div id="jsontarget">
+
+</div>
+
+<script>
+
+var buttonclick = document.getElementById("button");
+buttonclick.addEventListener("click", function() {
+  var filetarget = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22nome%2C%20ak%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys"
+  loadText(filetarget);   /*For the function to work on click it has to be a callback*/
+});
+
+</script>
+
+</html>
+
+<!-- How to render inline HTML -->
+
+<% uri = URI("http://example.com/index.html?count=10") %>
+<% uri = URI("localhost:3000/ajax.txt") %>
+
+<% Net::HTTP.get(uri) %>
+<% params = { :limit => 10, :page => 3} %>
+<% uri.query = URI.encode_www_form(params) %>
+<% res = Net::HTTP.get_response(uri) %>
+<%= render html: res.body.html_safe %>
+
+
+<!-- <% uri.query = URI.encode_www_form(params) %>
+<% res = Net::HTTP.get_response(uri) %>
+<% renderpage = Nokogiri::HTML(res.body) if res.is_a?(Net::HTTPSuccess) %>
+<%= renderpage %> -->
+
+<%= link_to 'Home', root_path %>

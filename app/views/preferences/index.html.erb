@@ -1,0 +1,86 @@
+<!-- Error treatment - Display errors or messages -->
+
+<% flash.each do |key, value| %>
+  <div class="row col-12 alert alert-warning alert-dismissible fade show" id="mainalert" role="alert" style="z-index: 1;">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+      <strong><%= value %></strong>
+  </div>
+<% end %>
+
+<!-- Title selection - User's preference, New preference or All preferences for admin-->
+
+<% if params["user_id_pref"] != nil%>
+  <h1 class="text-center"><%= current_user.firstname.capitalize %>'s Preferences</h1>
+<% else %>
+  <% if current_user.admin %>
+    <h1 class="text-center">Showing all user's preferences</h1>
+  <% else %>
+    <h1 class="text-center">Set up your preferences! <%= current_user.firstname %></h1>
+  <% end %>
+<% end %>
+
+
+<!-- Params = "user_id_pref", -> Show my preferences. Params = nil, Show all preferences -->
+<% if params["user_id_pref"] != nil and @user_preferences != nil%>
+  <div class="container col-md-6 col-11 preferences_div">
+    <form>
+      <% count = 1 %>
+      <% categories = @categories %>
+      <% categories.each do |c| %>
+        <input type="button" id="preferencesbutton<%= "#{count}" %>" name="categ<%= "#{count}" %>" value="<%= c.name %>" class="btn categorybutton preferencesbutton mt-2" onclick="changeButton(this.id)">
+        <% count += 1 %>
+      <% end %>
+      <br />
+      <% if params['action'] == 'index' %>
+        <% hash = JSON.parse(Preference.where(user_id: current_user.id)[0].options) %>
+          <% hash.each do |opt| %>
+            <% buttonname = opt['options'] %>
+            <%= javascript_tag do %>
+              findprefitens("<%= opt['options'] %>");
+            <% end %>
+          <% end %>
+      <% end %>
+    </form>
+  </div>
+<% end %>
+
+  <!--If @user_preferences != nil means user already selected preferences. Show button options-->
+  <% if @user_preferences != nil %>
+    <div class="container col-md-6 col-11">
+      <% @preferences = @user_preferences %>
+      <br />
+      <button class="btn btn-success "><%= link_to 'Edit', edit_preference_path(@preferences) %></button>
+      <button class="btn btn-danger "><%= link_to 'Delete', @preferences, method: :delete, data: { confirm: 'Are you sure?' } %></button>
+    </div>
+  <% else %>
+    <!-- Admin - Show all users preferences -->
+    <% if current_user.admin? %>
+      <table class="table">
+        <tbody>
+          <% @preferences.each do |pref| %>
+            <tr>
+              <td>
+                <% hash = JSON.parse(pref.options) %>
+                <% hash.each do |opt| %>
+                    <%= opt['options'] + " " %>
+                <% end %>
+              </td>
+              <td><%= pref.id %></td>
+              <td><%= pref.aux1 %></td>
+              <td><%= pref.user.username %></td>
+              <td><%= link_to 'Show', pref %></td>
+              <td><%= link_to 'Edit', edit_preference_path(pref) %></td>
+              <td><%= link_to 'Delete', pref, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <%= link_to 'New Preference', new_preference_path %>
+    <% end %>
+  <% end %>
+
+  <br />
+<%= link_to 'Back', events_path %>

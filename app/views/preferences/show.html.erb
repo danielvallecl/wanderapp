@@ -1,0 +1,38 @@
+<!-- Error treatment - Display errors or messages -->
+
+<% flash.each do |key, value| %>
+  <div class="row col-12 alert alert-warning alert-dismissible fade show" id="mainalert" role="alert" style="z-index: 1;">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+      <strong><%= value %></strong>
+  </div>
+<% end %>
+
+<!-- Show all categories as buttons -->
+<h1 class="text-center"><%= current_user.firstname %>'s preferences</h1>
+<div class="container col-md-6 col-11 preferences_div">
+  <form>
+    <% count = 1 %>
+    <% categories = @categories %>
+    <% categories.each do |c| %>
+      <input type="button" id="preferencesbutton<%= "#{count}" %>" name="categ<%= "#{count}" %>" value="<%= c.name %>" class="btn categorybutton preferencesbutton mt-2" onclick="changeButton(this.id)">
+      <% count += 1 %>
+    <% end %>
+    <br />
+    <% if params['action'] == 'show' %>
+      <!-- Show all categories selected by the user as buttons in green color -->
+      <% hash = JSON.parse(Preference.where(user_id: current_user.id)[0].options) %>
+        <% hash.each do |opt| %>
+          <% buttonname = opt['options'] %>
+          <%= javascript_tag do %>
+            findprefitens("<%= opt['options'] %>");
+          <% end %>
+        <% end %>
+    <% end %>
+  </form>
+</div>
+
+
+<%= link_to 'Edit', edit_preference_path(@preference) %> |
+<%= link_to 'Back', events_path %>

@@ -1,0 +1,463 @@
+// =================HTML AND BODY SETTINGS====================== //
+html, body {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  margin: 0;
+  background-color: none;
+  background-size: cover;
+}
+
+// ================= SASS VARIABLES ===================//
+
+$lightgreen: #5ac1ad;
+$darkgreen: #18a580;
+
+
+// ================= FONTS ===================//
+
+* {
+  font-family: 'Karla';
+  text-decoration: none !important;
+}
+
+// ================= NAVBAR ===================//
+
+.navbar {
+  background: transparent;
+  border-bottom: 0px solid #585858;
+  z-index: 5;
+  button, a {
+    font-size: 1.1em;
+  }
+}
+
+.search {
+  border: none;
+  margin-left: -50px;
+  background: transparent;
+  outline: transparent;
+  cursor: pointer;
+  padding: 0 0 0 0;
+}
+
+.createevent:hover {
+  background-color: $lightgreen;
+  color: white;
+}
+
+.dropdown-item:hover {
+  background-color: $lightgreen;
+  color: white;
+}
+
+// ===========OVERRING BOOTSTRAP DEFAULTS==============//
+
+textarea:focus,
+.form-control:focus,
+.dropdown:focus,
+.button:focus,
+.button:active,
+.btn:active,
+.dropdown-toggle:focus,
+input[type="text"]:focus,
+input[type="textarea"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+  border-color: rgba(26, 174, 135, 1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(26, 174, 135, 1);
+  outline: 0 none;
+}
+
+.submitbutton {
+  background-color: $darkgreen;
+  border-color: $darkgreen;
+  color: white;
+  &:hover {
+    background-color: $lightgreen;
+    border-color: $lightgreen;
+  }
+}
+
+// =============== ALERTS ================= //
+
+// Removes margin-bottom of all Bootstrap alerts:
+.alert {
+  margin-bottom: 0;
+}
+
+#mainalert {
+  position: relative;
+  margin-top: -50px;
+  top: 45px;
+  left: 15px;
+}
+
+@mixin avatar($size) {
+    width: $size;
+    height: $size;
+    background-color: #56c1ad;
+    text-align: center;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+
+    .initials {
+      position: relative;
+      top: $size*0.25;
+      font-size: $size*0.5;
+      line-height: $size*0.5;
+      color: #fff;
+      font-family: "Courier New", monospace;
+      font-weight: bold;
+    }
+}
+
+.avatar-circle      { @include avatar(100px); }
+.avatar-circle-sm   { @include avatar(50px); }
+.avatar-circle-lg   { @include avatar(250px); }
+
+.photo {
+  margin-top: -30px;
+}
+
+// ================= CARROUSEL ===================//
+
+// The Negative Margin Top places the Carousel below the Navbar
+.maincarousel {
+  position: relative;
+  margin-top: -200px;
+  z-index: 1;
+  width: 100%;
+}
+
+.carousel_images {
+  object-fit: cover;
+}
+
+// Extra margin top for Mobile to account for 'Login' font size
+@media screen and (max-width: 768px) {
+  .maincarousel {
+    margin-top: -205px;
+  }
+}
+
+.carousel_window {
+  width: 100%;
+  height: 400px;
+}
+
+.img-fluid{
+  width: 100%;
+  height: auto;
+}
+
+.carousel img{
+  width: 1500px;
+  height: 400px;
+}
+
+@media screen and (max-width: 400px){
+  .carousel img{
+    width: 644px;
+    height: 322px;
+  }
+}
+
+@media screen and (min-width: 401px){
+  .carousel img{
+    width: 644px;
+    height: 322px;
+  }
+}
+
+@media screen and (min-width: 576px){
+  .carousel img{
+    width: 800px;
+    height: 400px;
+  }
+}
+
+@media screen and (min-width: 768px){
+  .carousel img{
+    width: 1000px;
+    height: 500px;
+  }
+}
+
+@media screen and (min-width: 992px){
+  .carousel img{
+    width: 1200px;
+    height: 600px;
+  }
+}
+
+@media screen and (min-width: 1200px){
+  .carousel img{
+    width: 1500px;
+    height: 600px;
+  }
+}
+
+@media screen and (min-width: 1201px){
+  .carousel img{
+    width: 100%;
+    height: 600px;
+  }
+}
+
+.welcome {
+  z-index: 3;
+  h1 {
+    color: white;
+  }
+}
+
+.geoposition{
+  background: transparent;
+  font-size: 12px;
+  color: lightgoldenrodyellow;
+  z-index: 3;
+  margin-top: -400px;
+  margin-left: 100px;
+  border: 1px solid lightgoldenrodyellow;
+  border-radius: 1.25rem;
+}
+
+.geoaux{
+  background: transparent;
+}
+
+.geoposition a h4{
+  background: transparent;
+  font-size: 12px;
+  color: lightgoldenrodyellow;
+  z-index: 3;
+}
+
+.overlay{
+    color: #000;
+    position: relative;
+    z-index: 3;
+    top: 5rem;
+    left: 0;
+    width: 100%;
+}
+
+.headline {
+  font-size: 3em;
+  color: white;
+  text-shadow: 0.5px 0.5px 1px #000000;
+  @media screen and (max-width: 600px) {
+    font-size: 2.4em;
+    float: none;
+  }
+}
+
+
+#login {
+  font-size: 1.2em;
+  color: white;
+  text-shadow: 0.5px 0.5px 1px #000000;
+  &:hover {
+    color: $darkgreen;
+  }
+}
+
+// ================LOGO STYLING===============//
+
+#logo {
+  font-family: 'Pacifico';
+  font-size: 1.8em;
+  user-select: none;
+  color: $darkgreen;
+  transition: 0.2s;
+  text-shadow: 0.5px 0.5px 1px #000000;
+  &:hover {
+    color: $lightgreen;
+    transition: 0.1s;
+  }
+  @media screen and (max-width: 768px) {
+  position: relative;
+  right: 40px;
+  }
+}
+
+// ==========NAVBAR RIGHT NAVIGATION==============//
+
+// BUGFIX: dropdown-menu-right was not working natively in Bootstrap and the following CSS fixes it for screens above 768px.
+@media screen and (min-width: 768px) {
+  .dropdown-menu-right {
+  right: 0;
+  left: auto;
+  }
+}
+
+.navbar a {
+  user-select: none;
+  color: black;
+
+  &:hover{
+    color: navyblue;
+  }
+}
+
+.btn:hover {
+  background-color: navyblue;
+  border-color: navyblue;
+}
+
+navbar-toggler-icon {
+  background-color: white;
+  color: white;
+}
+
+// =============MAIN MODALS=============//
+
+// This solves the wrong form input bug on iPhone devices
+body.modal-open {
+  position: fixed;
+}
+
+#loginModal {
+  margin-top: 100px;
+}
+
+#signupModal {
+  margin-top: 100px;
+}
+
+// ============ LANDING IMAGES =========
+
+.landingimages {
+  object-fit: cover;
+}
+
+// =============ROWS=============
+
+.card {
+  border: none;
+}
+
+.row-title {
+  font-family: 'Pacifico';
+  font-size: 1.8em;
+  user-select: none;
+  color: $darkgreen;
+}
+
+// =================INDEX MAP=================== //
+
+#indexMap {
+  height: 60vh;
+  margin-bottom: 0;
+}
+
+#eventsMap {
+  height: 60vh;
+  margin-bottom: 0;
+}
+
+.infowindowtitle {
+  font-size: 3vh;
+
+}
+
+// =================PAGINATION=================== //
+
+.pagination a {
+  color: $lightgreen;
+  &:active {
+    background-color: $lightgreen;
+  }
+  &:hover:not(.active) {
+    color: white;
+    background-color: $lightgreen;
+  }
+}
+
+.pagination a:active {
+  background-color: #ddd;
+}
+
+.page-item.active .page-link {
+  background-color: $lightgreen;
+  border-color: $lightgreen;
+}
+
+
+// =================FOOTER=================== //
+
+// BUGFIX
+// This class makes the footer sit at the bottom of the viewport at all times.
+.main-container {
+ min-height: 100vh; /* will cover the 100% of viewport */
+ overflow: hidden;
+ display: block;
+ position: relative;
+ padding-bottom: 15vh; /* height of your footer */
+}
+
+.footer {
+  position: absolute;
+  clear: both;
+  width: 110%;
+  bottom: 0;
+  height: 15vh;
+  margin-top: 500px;
+  padding-top: 5px;
+  border-top: 1px solid #eaeaea;
+  color: #777;
+  background-color: #79cad3;
+    &:hover {
+      color: #222;
+    }
+    small {
+      float: left;
+      margin-top: 30px;
+      margin-right: 22.5px;
+      margin-left: 15px;
+    }
+    ul {
+      float: right;
+      list-style: none;
+      margin-right: 20px;
+      margin-top: 30px;
+      li {
+        float: left;
+        margin-left: 15px;
+      }
+    }
+}
+
+.footercontent {
+  width: inherit;
+}
+
+@media screen and (max-width: 768px) {
+  .footercontent {
+    width: inherit;
+    margin-right: 2.7vh;
+  }
+}
+
+.brandlogo {
+  font-size: 5vh;
+  color: white;
+  transition: 0.2s;
+  &:hover {
+    color: #25a480;
+  }
+}

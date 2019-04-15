@@ -1,0 +1,128 @@
+<%= form_with(model: event, local: true) do |form| %>
+  <% if event.errors.any? %>
+
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+      <strong><h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2></strong>
+        <ul>
+        <% event.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+  </div>
+
+<% end %>
+
+
+  <div class="container field col-lg-4 col-md-6 col-11 mb-4 mt-4 eventsform">
+    <h1 class="text-center" id="event_form_title">New Event</h1>
+
+    <div class="form-row">
+
+      <div class="form-group col-md-6">
+        <%= form.label :title, "Title", class: 'category' %>
+        <%= form.text_field :title, id: :event_title, class: 'form-control' %>
+      </div>
+
+
+      <div class="form-group col-md-6">
+        <%= form.label :category, class: 'category' %>
+        <%= form.select(:category, Category.all.collect {|c| [c.name]}, {:include_blank => '-select-'},id: :event_category, class: 'form-control') %>
+      </div>
+
+    </div>
+
+    <div class="form-row">
+
+      <div class="form-group col-md-12">
+        <%= form.label :address, 'Address', class: 'category' %>
+        <%= form.text_field :address, id: :event_address, class: 'form-control' %>
+      </div>
+
+    </div>
+
+    <div class="form-row">
+
+      <div class="form-group col-md-6">
+        <%= form.hidden_field :city, id: :event_city, class: 'form-control' %>
+      </div>
+
+      <div class="form-group col-md-6">
+        <%= form.hidden_field :country, id: :event_country, class: 'form-control' %>
+      </div>
+
+    </div>
+
+    <div class="form-row">
+
+      <div class="form-group col-md-5">
+        <%= form.label :startdate, 'Start Date', class: 'category' %>
+        <%= form.date_field :startdate, id: :event_startdate, class: 'form-control' %>
+      </div>
+
+      <div class="form-group col-md-4">
+        <%= form.label :starttime, 'Start Time', class: 'category' %>
+        <%= form.time_field :starttime, id: :event_starttime, class: 'form-control' %>
+      </div>
+
+      <div class="form-group col-md-3">
+        <%= form.label :duration, class: 'category' %>
+        <%= form.number_field :duration, id: :event_duration, class: 'form-control', placeholder: 'Hours'%>
+      </div>
+
+    </div>
+
+    <div class="form-row">
+
+      <div class="form-group col-md-12">
+        <%= form.label :description, class: 'category' %>
+        <%= form.text_area :description, id: :event_description, class: 'form-control' %>
+      </div>
+
+    </div>
+
+    <div class="form-row mt-3">
+      <div class="actions m-auto">
+        <%= form.submit class: 'btn btn-primary submitbutton' %>
+      </div>
+    </div>
+
+  </div>
+
+
+
+<!-- ========== Backup Form Fields ==============-->
+
+<!-- <div class="field">
+  <%= form.label :owner %>
+  <%= form.text_field :owner, id: :event_owner %>
+</div>
+
+<div class="field">
+  <%= form.label :obs %>
+  <%= form.text_field :obs, id: :event_obs %>
+</div>
+
+<div class="field">
+  <%= form.label :active %>
+  <%= form.check_box :active, id: :event_active %>
+</div> -->
+
+<!-- <div class="field">
+  <%= form.label :aux1 %>
+  <%= form.text_field :aux1, id: :event_aux1 %>
+</div>
+
+<div class="field">
+  <%= form.label :aux2 %>
+  <%= form.text_field :aux2, id: :event_aux2 %>
+</div>
+
+<div class="field">
+  <%= form.label :aux3 %>
+  <%= form.text_field :aux3, id: :event_aux3 %>
+</div> -->
+
+<% end %>

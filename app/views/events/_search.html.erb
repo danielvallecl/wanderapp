@@ -1,0 +1,40 @@
+
+
+<% if @search_count > 0 or @category_count > 0 %>
+<h1 class="text-center">We found <%= @search_count + @category_count%> results for "<%= params["search"] %>"</h1>
+
+  <%@search_results.each do |s|  %>
+
+      <%= link_to s.title, event_path(s)  %>
+
+      <%= s.title %>
+      <br />
+      <%= s.city %>
+      <br />
+      <%= s.country %>
+      <br />
+
+  <% end %>
+
+  <%@category_results.each do |s|  %>
+
+      <%= link_to s.title, event_path(s)  %>
+
+      <%= s.category %>
+      <br />
+      <%= s.title %>
+      <br />
+      <%= s.city %>
+      <br />
+      <%= s.country %>
+      <br />
+
+  <% end %>
+
+  <% else %>
+    <% if params["search"] != '' %>
+      <h1 class="text-center"> We couldn't find any results with your query.</h1>
+    <% else %>
+      <h1 class="text-center"> Please enter a valid search.</h1>
+    <% end %>
+  <% end %>

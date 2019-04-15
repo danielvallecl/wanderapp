@@ -1,0 +1,2 @@
+LOG STARTED @ 2018-03-18 18:35:06 -0400
+This is line to be appended - 2018-03-18 18:35:17 -0400

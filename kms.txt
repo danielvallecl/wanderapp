@@ -1,0 +1,77 @@
+
+
+rails db:migrate change_column(:events, :starttime, :datetime)
+
+Foreign Key in Scaffolding:
+
+rails g scaffold Active user:references event:references status:boolean obs:string
+
+==============ACTIVE RECORD=============
+
+To get one attribute from all the instances of a Model
+
+=========Sign IN===========
+
+To change a button in the new and edit pages
+
+  <%= form.submit(@user.new_record? ? 'Sign Up' : 'Edit') %>
+
+In the form password_digest should be just password and in the controller def_params should also be just password.
+
+=========Databases=========
+
+  1.SCHEMA
+
+How to update a schema delete the entries by hand and run:
+
+  rails db:schema:load
+
+To dump a schema
+
+  rails db:schema:dump
+
+To force a column to change its data type, add it inside a migration:
+
+  change_column :events, :startdate, 'date USING CAST(startdate AS date)'
+
+  GENERATING A SCAFFOLD
+
+  rails generate scaffold Event title:string description:string category:string startdate:date starttime:time duration:integer owner:string city:string country:string address:string obs:string active:boolean aux1:string aux2:string aux3:string
+
+  rails generate scaffold User firstname:string lastname:string email:string gender:string homecity:string homecountry:string phone:string nativelanguage:string secondlanguage:string aboutme:text agegroup:string obs:string aux1:string aux2:string aux3:string
+
+  ADDING/REMOVING COLUMNS TO TABLE
+
+  Rename
+
+  rails g migration AddXXXTo(TableName)
+
+  rails g migration RemoveXXXTo(TableName)
+
+  MIGRATIONS
+
+  To list all migrations:
+
+    rails db:migrate:status
+
+  DELETE SCAFFOLD
+
+  rails destroy scaffold <Model>
+
+  DROP A TABLE
+
+  Inside of Rails Console:
+
+    ActiveRecord::Migration.drop_table(:users)
+
+  ASSOCIATIONS
+
+  rails g scaffold Comment firstname:string user:references
+
+  ADDING A FOREIGN KEY TO AN EXISTING COLUMN
+
+    In a migration:
+
+    def change
+      add_foreign_key :uploads (table to be changed), :users (table to be referenced)
+    end

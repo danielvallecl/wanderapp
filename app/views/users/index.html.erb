@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1 class="text-center">Users</h1>
+
+<div align="center">
+  <table>
+    <tbody>
+      <% @users.each do |user| %>
+        <div class="row justify-content-center">
+          <div class="col-md-4">
+            <ul style="list-style-type:none">
+              <li>
+                <div class="avatar-circle">
+                  <% begin %>
+                    <span class="initials align-self-center"><%= user.firstname[0,1] %><%= user.lastname[0,1]  %></span>
+                  <% rescue %>
+                    <span class="initials align-self-center"><%= "?" %><%= "?" %></span>
+                  <% end %>
+                </div>
+              </li>
+                <!--<li><%=link_to gravatar_for(user), user_path(user) %></li>-->
+              <li><%=link_to user.firstname, user_path(user) %></li>
+              <li><small><%= pluralize(user.events.count, 'event') if user.events %></small></li>
+              <% if logged_in? && current_user.admin? %>
+              <li><%= link_to 'Edit', edit_user_path(user), class: 'btn btn-xs btn-primary' %></li>
+              <li><%= link_to 'Delete', user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger' %></li>
+
+              <% end %>
+              </ul>
+            </div>
+          </div>
+      <% end %>
+    </tbody>
+ </table>
+</div>
+
+<div class="row justify-content-center col-12 mt-5">
+  <%= will_paginate(@users, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
+</div>

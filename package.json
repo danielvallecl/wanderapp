@@ -1,0 +1,7 @@
+{
+  "name": "wander",
+  "private": true,
+  "dependencies": {
+    "bcrypt": "^1.0.3"
+  }
+}

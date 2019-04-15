@@ -1,0 +1,84 @@
+<!-- Error treatment - Display errors or messages -->
+
+<%= form_with(model: preference, local: true) do |form| %>
+  <% if preference.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(preference.errors.count, "error") %> prohibited this preference from being saved:</h2>
+
+      <ul>
+      <% preference.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<!-- Title selection - Could be from Edit or New views and from Admin-->
+  <% if params['action'] == 'edit' %>
+    <% if params['id'] == current_user.id %>
+      <h1 class="test text-center">Editing <%= current_user.firstname %>'s Preferences</h1>
+    <% else %>
+      <% admin_edit_user = User.find(Preference.find(params['id']).user_id)%>
+      <h1 class="test text-center">Editing <%= admin_edit_user.firstname %>'s Preferences</h1>
+    <% end %>
+  <% else %>
+    <h1 class="test text-center"><%= current_user.username %>'s Preferences</h1>
+  <% end %>
+
+<!-- Display body - If Edit Show all pre-selected preferences and button update. If new - show option for preferences and button save -->
+  <div class="container col-md-6 col-11 preferences_div">
+    <form>
+
+      <!-- Action Edit or New -> Show all available categories -->
+      <% count = 1 %>
+      <% categories = @categories %>
+      <% categories.each do |c| %>
+        <input type="button" id="preferencesbutton<%= "#{count}" %>" name="categ<%= "#{count}" %>" value="<%= c.name %>" class="btn categorybutton preferencesbutton mt-2" onclick="changeButton(this.id)">
+        <% count += 1 %>
+      <% end %>
+      <br />
+
+      <!-- If Action Edit -> Show pre-selected categories in green and button Update -->
+      <% if params['action'] == 'edit' %>
+
+        <!-- Check if the Edit is coming from the owner of the preferences or Admin -->
+        <% if params['id'] == current_user.id %>
+          <!-- Coming from the owner of the preferences -->
+          <% hash = JSON.parse(Preference.where(user_id: current_user.id)[0].options) %>
+        <% else %>
+        <!-- Coming from Admin -->
+          <% hash = JSON.parse(Preference.where(user_id: admin_edit_user.id)[0].options) %>
+        <% end %>
+            <% hash.each do |opt| %>
+              <% buttonname = opt['options'] %>
+              <%= javascript_tag do %>
+
+                findprefitens("<%= opt['options'] %>");
+              <% end %>
+            <% end %>
+          <div class="row justify-content-end mr-3 mt-2">
+            <button type="submit" id="save" name="options" value="" class="btn preferencesbutton" onclick="prepare_params()">Update</button>
+          </div>
+        <% else %>
+
+          <!-- Action New -> Show button Save -->
+          <div class="row justify-content-end mr-3 mt-2">
+            <button type="submit" id="save" name="options" value="" class="btn preferencesbutton" onclick="prepare_params()">Save</button>
+          </div>
+        <% end %>
+
+      <!-- Hidden itens for params - Action New or Edit -->
+      <div class="row justify-content-end mr-3">
+        <input type="hidden"  name="obs" value="Obs">
+      </div>
+
+      <div class="row justify-content-end mr-3">
+        <input type="hidden"  name="aux1" value="<%= current_user.id %>">
+      </div>
+
+      <div class="row justify-content-end mr-3">
+        <input type="hidden"  name="user_id" value="<%= current_user.id %>">
+      </div>
+    </form>
+  </div>
+<% end %>

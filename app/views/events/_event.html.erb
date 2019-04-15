@@ -1,0 +1,143 @@
+<!-- ==============MAPS KEY===============-->
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['google_maps_api'] %>&callback=initIndexMap" async defer></script>
+
+<!--===========GEOCODING===============-->
+
+
+
+<!--==========================  -->
+
+<!-- If (city) was selected || (category) was selected. Otherwise render all Events.  -->
+<% cities = false %>
+<% categories = false %>
+<% if (@events_by_city != nil && @events_by_city.size > 0) || (@events_by_category != nil && @events_by_category.size > 0)   %>
+
+<!-- Tests if city was selected -->
+
+  <% if @events_by_city.size > 1 %>
+    <% cities = true %>
+    <h1 class="text-center">There are <%= @events_by_city.size %> Events in <%= @current_city %></h1>
+  <% elsif @events_by_city.size > 0 %>
+  <% cities = true %>
+    <h1 class="text-center">There is <%= @events_by_city.size %> Event in <%= @current_city %></h1>
+  <% end %>
+
+  <!-- Tests if category was selected -->
+
+  <% if @events_by_category.size > 1 %>
+    <% categories = true %>
+    <h1 class="text-center">There are <%= @events_by_category.size %> <%= @current_category %> Events</h1>
+  <% elsif @events_by_category.size > 0 %>
+    <% categories = true %>
+    <h1 class="text-center">There is <%= @events_by_category.size %> <%= @current_category %> Event</h1>
+  <% end %>
+
+    <!--====================EVENTS BY CATEGORY ======================  -->
+
+    <% if categories == true %>
+      <div class="row justify-content-center">
+        <% @events.each do |event|  %>
+          <% event_found_category = event %>
+          <div class="col-5 mt-4">
+            <div class="card">
+              <div class="card-header col-12">
+                <div class="row">
+                  <span class="ml-2"><%= event.category %></span>
+                  <span class="ml-auto mr-1"><i class="fa fa-calendar mr-2" aria-hidden="true"></i><%= event.startdate.to_date.to_formatted_s(:long)%></span>
+                </div>
+              </div>
+              <div class="card-block p-3">
+                <h4 class="card-title"><td><%= link_to event_found_category.title, event_path(event_found_category) %> @
+                  <% if event_found_category.city == nil %>
+                  <%= event_found_category.country %> </td></h4>
+                  <% else %>
+                  <%= link_to event_found_category.city, events_path %>, <%= event_found_category.country %> </td></h4>
+                  <% end %>
+                <p class="card-text"><td><%= event_found_category.description %></td></p>
+                <p class="card-text"><small class="text-muted">Created by: <%= event_found_category.user.firstname%></small></p>
+              </div>
+              <div class="text-center"><small><%= eventsCount = Active.where(event_id: event_found_category.id).count %><%= ' already joined this event' %> </small></div>
+            </div>
+          </div>
+        <% end %> <!-- end do -->
+      </div>
+    <% end %>
+
+  <!-- ===============EVENTS BY CITY================  -->
+  <% if cities = true %>
+    <div class="row justify-content-center">
+      <% @events_by_city.each do |event|  %>
+        <% event_found = Event.all.find(event) %>
+
+        <div class="col-5">
+          <div class="card">
+            <div class="card-header col-12">
+              <div class="row">
+                <span class="ml-2"><%= event_found.category %></span>
+                <span class="ml-auto mr-1"><i class="fa fa-calendar mr-2" aria-hidden="true"></i><%= event_found.startdate.to_date.to_formatted_s(:long)%></span>
+              </div>
+            </div>
+            <div class="card-block">
+              <h4 class="card-title"><td><%= link_to event_found.title, event_path(event_found) %> @ <%= link_to event_found.city, events_path %>, <%= event_found.country %> </td></h4>
+              <p class="card-text"><td><%= event_found.description %></td></p>
+              <p class="card-text"><small class="text-muted">Created by: <%= event_found.user.firstname%></small></p>
+            </div>
+            <div class="text-center"><small><%= eventsCount = Active.where(event_id: event_found.id).count %><%= ' already joined this event' %> </small></div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %> <!-- end if cities-->
+
+<% else %>
+
+<!--================MAIN INDEX PAGE======================  -->
+
+<!--================INDEX MAP======================  -->
+
+<!-- mapoff tells index.erb to show or not map -->
+  <% if mapoff == true %>
+    <div class="container mt-4 col-11 col-md-11 eventsMap" id="indexMap" data-latitude= "<%= latitudes %>" data-owner="<%= eventowner %>" data-longitude="<%= longitudes %>" data-title="<%= titles %>" data-address = "<%= addresses %>" data-ids="<%= ids %>" data-loggedin="<%= logged_in? %>">
+    </div>
+  <% end %>
+
+  <div class="container">
+    <div class="row justify-content-center mt-4">
+        <% if obj.count != 0 %>
+          <% obj.each do |event| %>
+
+              <div class="col-12 col-md-6 mt-4">
+                <div class="card eventscard">
+                  <div class="card-header col-12">
+                    <div class="row">
+                      <span class="ml-2"><%= link_to event.category, events_path(:category => event.category), class: 'cardcategory' %></span>
+                      <span class="ml-auto mr-1 carddate"><i class="fa fa-calendar mr-2" aria-hidden="true"></i><%= event.startdate.to_date.to_formatted_s(:long)%></span>
+                    </div>
+                  </div>
+
+                  <div class="card-block">
+                    <h2 class="card-title"><td><%= link_to event.title, event_path(event) %></h2>
+                    <% if event.city != nil %>
+                      <h4><%= link_to event.city, events_path(:city => event.city) %>, <%= event.country %></h4>
+                    <% else %>
+                      <h4><%= event.country %></h4>
+                    <% end %>
+                    <p class="card-text"><td><%= truncate(event.description, length: 75) %></p>
+                    <p class="card-text"><small class="text-muted">Created by: <%= event.user.firstname%></small></p>
+                    <div class="text-center"><small><%= eventsCount = Active.where(event_id: event.id).count %><%= ' already joined this event' %> </small></div>
+                  </div>
+
+                </div>
+              </div>
+
+          <% end %> <!--each do-->
+
+        <% else %>
+
+          <h3>You have no events, would you like to <%= link_to 'create one', new_event_path %>?</h3>
+
+        <% end %>
+    </div>
+  </div>
+<% end %>

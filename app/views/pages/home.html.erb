@@ -1,0 +1,156 @@
+<!-- Map Key -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC94MRdpm5g_vPX3_ZG1OLfO9mZz6bHoRw&callback=initIndexMap" async defer></script>
+
+<!-- Displays Error Messages  -->
+
+<% flash.each do |key, value| %>
+    <div class="row col-12 alert alert-warning alert-dismissible fade show" id="mainalert" role="alert" style="z-index: 3;">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+        <strong><%= value %></strong>
+    </div>
+  <% end %>
+
+<!--=======SIGN UP MODAL============ -->
+
+<% user = @user %>
+
+<div class="modal fade mt-6" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <%= form_with(model: user, local: true) do |form| %>
+  <div class="modal-dialog justify-content-center signupModal" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitle">Create Account</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body justify-content-center">
+        <div class="form-group col-md-8 col-12 offset-md-2">
+          <%= form.text_field :firstname, id: :user_firstname, placeholder: "First Name", class: "form-control form-rounded", id:'signupInput' %>
+        </div>
+        <div class="form-group col-md-8 col-md-8 col-12 offset-md-2">
+          <%= form.text_field :lastname, id: :user_lastname, placeholder: "Last Name", class: "form-control form-rounded" %>
+        </div>
+        <div class="form-group col-md-8 col-md-8 col-12 offset-md-2">
+          <%= form.email_field :email, id: :user_email, placeholder: "Email", class: "form-control form-rounded" %>
+        </div>
+        <div class="form-group col-md-8 col-md-8 col-12 offset-md-2">
+          <%= form.text_field :username, id: :user_username, placeholder: 'Username', class: "form-control form-rounded"%>
+        </div>
+        <div class="form-group col-md-8 col-md-8 col-12 offset-md-2">
+          <%= form.password_field :password, id: :user_password, placeholder: 'Password', class: "form-control form-rounded" %>
+        </div>
+      </div>
+      <div class="modal-footer m-auto">
+        <%= form.submit(@user.new_record? ? 'Submit' : 'Update Profile', class: 'btn btn-primary submitbutton') %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>
+
+<!--=======LANDING PAGE============ -->
+
+
+<!--==========CARROUSEL============ -->
+
+  <div class="row">
+    <div class=col-12>
+      <div class="overlay text-center">
+          <h1 class="headline">Welcome to Wander</h1>
+          <%= link_to 'Sign Up', root_path, {class: "btn btn-primary btn-lg submitbutton", data: {toggle: 'modal', target: '#signupModal'}} %>
+      </div>
+    </div>
+  </div>
+
+    <div id="maincarousel" class="carousel slide maincarousel" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#maincarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#maincarousel" data-slide-to="1"></li>
+        <li data-target="#maincarousel" data-slide-to="2"></li>
+        <li data-target="#maincarousel" data-slide-to="3"></li>
+        <li data-target="#maincarousel" data-slide-to="4"></li>
+      </ol>
+
+      <div class="carousel-inner carousel_window" role="listbox">
+
+        <div class="carousel-item active">
+          <%= image_tag "img1_cropped.jpg", class: "carousel_images img-fluid", id: 'carouselimage1', alt: "First Slide"  %>
+        </div>
+        <div class="carousel-item">
+          <%= image_tag "img5_cropped.jpg", class: "carousel_images img-fluid", id: "carouselimage2",alt: "Third Image" %>
+        </div>
+        <div class="carousel-item">
+          <%= image_tag "img4_cropped.jpg", class: "carousel_images img-fluid", id: 'caroulselimage3',alt: "Second Slide" %>
+        </div>
+        <div class="carousel-item">
+          <%= image_tag "img3_cropped.jpg", class: "carousel_images img-fluid", id: 'caroulselimage4',alt: "Second Slide" %>
+        </div>
+        <div class="carousel-item">
+          <%= image_tag "img2_cropped.jpg", class: "carousel_images img-fluid", id: 'caroulselimage5',alt: "Second Slide" %>
+        </div>
+      </div>
+    </div>
+
+
+<!--==============INDEX MAP================== -->
+
+<div class="container border rounded mt-md-4 col-md-11 col-12" id="indexMap" data-latitude= "<%= latitudes %>" data-longitude="<%= longitudes %>" data-loggedin="<%= logged_in? %>"></div>
+
+<!--=============INFORMATION ROW ===============  -->
+
+<!-- ROW 1 -->
+
+<div class="row mt-lg-5">
+  <div class="card">
+    <div class="row ">
+      <div class="col-md-8">
+          <%= image_tag 'people1_cropped.jpg', class: 'img-fluid img-thumbnail landingimages' %>
+        </div>
+        <div class="col-md-4 p-5">
+            <h2 class="card-title text-center row-title">Meet People</h2>
+            <p>
+              Wander allows you to meet new people based on your interests and location.
+            </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 2 -->
+
+  <div class="row mt-lg-5">
+    <div class="card">
+      <div class="row ">
+        <div class="col-md-4 p-5 order-lg-0 order-1">
+            <h2 class="card-title text-center row-title">Your Favorite Events</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+        </div>
+          <div class="col-md-8 order-lg-1 order-0">
+              <%= image_tag 'nightclub_cropped.jpg', class: 'img-fluid img-thumbnail landingimages' %>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <!-- ROW 3  -->
+
+  <div class="row mt-lg-5 mb-lg-5">
+    <div class="card">
+      <div class="row">
+        <div class="col-md-8">
+            <%= image_tag 'hiking_cropped.jpg', class: 'img-fluid img-thumbnail landingimages' %>
+          </div>
+          <div class="col-md-4 p-5">
+              <h2 class="card-title text-center row-title">Discover</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </p>
+          </div>
+        </div>
+      </div>
+    </div>

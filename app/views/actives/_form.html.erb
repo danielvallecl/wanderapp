@@ -1,0 +1,44 @@
+<%= form_with(model: active, local: true) do |form| %>
+  <% if active.errors.any? %>  
+    <div id="error_explanation">
+      <h2><%= pluralize(active.errors.count, "error") %> prohibited this active from being saved:</h2>
+
+      <ul>
+      <% active.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :username %>
+    <%= form.text_field :username, id: :active_user_name, value: params['username'], disabled: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :event %>
+    <%= form.text_field :eventname, id: :active_user_name, value: params['eventname'], disabled: true %>
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :user_id, id: :active_user_id, value: params['user_id']%>
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :event_id, id: :active_event_id, value: params['event_id']%>
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :status, id: :active_status, value: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :obs, "Message" %>
+    <%= form.text_area :obs, id: :active_obs, row: 10 %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Join Event'%>
+  </div>
+<% end %>

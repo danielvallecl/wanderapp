@@ -1,0 +1,90 @@
+<!-- ====== LOGIN MODAL ======== -->
+
+<div class="modal fade mt-6" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog justify-content-center loginModal" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitle">Login</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body justify-content-center">
+        <div class="form-group center-block col-md-8 col-12 offset-md-2">
+          <%= form_for(:session, :html => {class: 'form-horizontal', role: 'form'}, url: login_path) do |form| %>
+          <%= form.email_field :email, id: :user_email, placeholder: "Email", class: "form-control form-rounded", id:'loginInput' %>
+        </div>
+        <div class="form-group col-md-8 col-md-8 col-12 offset-md-2">
+          <%= form.password_field :password, id: :user_password_digest, placeholder: "Password", autocomplete: "off", class: "form-control form-rounded" %>
+        </div>
+      </div>
+      <div class="modal-footer m-auto">
+        <%= form.submit 'Log In', class: 'btn btn-primary btn-lg submitbutton' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+</div>
+
+<!--================NAVBAR================== -->
+
+<nav class="navbar navbar-expand-lg navbar-fixed-top navbar-light bg-faded ml-4" data-spy="affix" data-offset-top="400">
+<% if logged_in?  %>
+  <%= link_to "Wander", events_path, class: "navbar-brand ml-4", id: "logo" %>
+<% else %>
+  <%= link_to "Wander", root_path, class: "navbar-brand ml-4", id: "logo", onmouseover: "logoHover()", onmouseout: "logoHoverOut()", style: 'color: white;' %>
+<% end %>
+
+<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse right_menu" id="navbarSupportedContent">
+
+  <!--==================SEARCH FIELD=================-->
+
+  <% if logged_in? %>
+    <%= form_tag events_path, class: 'form-inline col-md-6 col-12', :method => "get" do %>
+    <%= search_field_tag :search, params[:search], placeholder: 'Search', class: "form-control col-md-8 col-12 col-sm-11" %>
+    <button class="btn btn-md search  justify-content-center align-items-cente col-1">
+      <i class="fa fa-search"></i>
+    </button>
+    <% end %>
+  <div class="navbar-collapse justify-content-end right_menu col-md-6 col-6">
+  <% else %>
+    <div class="navbar-collapse justify-content-end right_menu col-md-12 col-6">
+  <% end %>
+
+    <!--================RIGHT NAVIGATION MENU===============-->
+
+<% if logged_in? %>
+
+<%= link_to "Create Event", new_event_path, class: 'btn mr-4 createevent' %>
+
+<div class="dropdown mr-3">
+  <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <% current_user.admin? ? user_drop_name = 'Admin' : user_drop_name = current_user.username  %>
+      <%= user_drop_name %>
+  </button>
+  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+    <%= link_to 'My Events', user_path(current_user, :from => 'myevents'), class: 'dropdown-item' %>
+    <%= link_to 'Preferences', preferences_path(:user_id_pref => current_user.id), class: 'dropdown-item' %>
+    <%= link_to 'Account', user_path(current_user, :from => 'myaccount'), class: 'dropdown-item' %>
+    <% if current_user.admin? %>
+      <div class="dropdown-divider"></div>
+      <%= link_to 'All Users', users_path, class: 'dropdown-item' %>
+      <%= link_to 'All Preferences', preferences_path, class: 'dropdown-item' %>
+      <%= link_to 'Joined Events', actives_path, class: 'dropdown-item' %>
+    <% end %>
+    <div class="dropdown-divider"></div>
+    <%= link_to 'Log Out', logout_path, method: :delete, class: 'dropdown-item' %>
+  </div>
+</div>
+
+    <% else  %>
+      <%= link_to "Log In", root_path, {data: { toggle: 'modal', target: '#loginModal'}, id: 'login', class: 'mr-3' }%>
+    <% end  %>
+    </div>
+  </div>
+</nav>

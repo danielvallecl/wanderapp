@@ -1,0 +1,35 @@
+
+<% flash.each do |key, value| %>
+  <div class="row col-12 alert alert-warning alert-dismissible fade show" id="mainalert" role="alert" style="z-index: 1;">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+      <strong><%= value %></strong>
+  </div>
+<% end %>
+
+<p>
+  <strong>User:</strong>
+  <%= @active.user.username %>
+</p>
+
+<p>
+  <strong>Event:</strong>
+  <%= @active.event.title %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <% if @active.status? %>
+    <%= 'You have Joined this event' %>
+  <% else %>
+    <%= 'Not Joined Yet' %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Obs:</strong>
+  <%= @active.obs %>
+</p>
+
+<%= link_to 'Back', actives_path %>

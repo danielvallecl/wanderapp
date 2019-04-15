@@ -1,0 +1,111 @@
+<div class="container field col-md-5 col-11 mt-3 user_form">
+  <h1 class="text-center" id="user_form_title">Sign Up</h1>
+
+    <div class="form-row">
+
+      <div class="form-group col-md-6">
+        <%= form.label :firstname, 'First Name', class: 'category' %>
+        <%= form.text_field :firstname, id: :user_firstname, class: 'form-control' %>
+      </div>
+
+      <div class="form-group col-md-6">
+        <%= form.label :lastname, 'Last Name', class: 'category' %>
+        <%= form.text_field :lastname, id: :user_lastname, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-row">
+
+      <div class="form-group col-md-6">
+        <%= form.label :email, class: 'category' %>
+        <%= form.email_field :email, id: :user_email, class: 'form-control' %>
+      </div>
+
+      <div class="form-group col-md-6">
+        <%= form.label :phone, class: 'category' %>
+        <%= form.text_field :phone, id: :user_phone, class: 'form-control' %>
+      </div>
+
+    </div>
+
+    <div class="form-row">
+
+      <div class="form-group col-md-6">
+        <%= form.label :homecity %>
+        <%= form.text_field :homecity, id: :user_homecity, class: 'form-control' %>
+      </div>
+
+      <div class="form-group col-md-6">
+        <%= form.label :homecountry %>
+        <%= form.text_field :homecountry, id: :user_homecountry, class: 'form-control' %>
+      </div>
+
+    </div>
+
+    <div class="form-row">
+
+      <div class="form-group col-md-6">
+        <%= form.label :nativelanguage, 'Native Language' %>
+        <%= form.text_field :nativelanguage, id: :user_nativelanguage, class: 'form-control' %>
+      </div>
+
+      <div class="form-group col-md-6">
+        <%= form.label :secondlanguage, 'Second Language' %>
+        <%= form.text_field :secondlanguage, id: :user_secondlanguage, class: 'form-control' %>
+      </div>
+
+    </div>
+
+    <div class="form-row">
+
+      <div class="form-group col-md-6">
+        <%= form.label :gender %>
+        <%= form.text_field :gender, id: :user_gender, class: 'form-control' %>
+      </div>
+
+      <div class="form-group col-md-6">
+        <%= form.label :agegroup, 'Age Group' %>
+        <%= form.text_field :agegroup, id: :user_agegroup, class: 'form-control' %>
+      </div>
+
+    </div>
+
+    <div class="form-row">
+
+      <div class="form-group col-md-12">
+        <%= form.label :aboutme, 'Bio' %>
+        <%= form.text_area :aboutme, id: :user_aboutme, class: 'form-control', placeholder: 'Add a brief description of your interests!' %>
+      </div>
+
+    </div>
+
+      <div class="actions">
+        <%= form.submit class: 'btn btn-primary create_button ml-auto' %>
+      </div>
+
+  </div>
+
+
+
+
+<!-- ========== Backup Form Fields ==============-->
+
+<!-- <div class="field">
+<%= form.label :obs %>
+<%= form.text_field :obs, id: :user_obs %>
+</div> -->
+
+<!-- <div class="field">
+  <%= form.label :aux1 %>
+  <%= form.text_field :aux1, id: :user_aux1 %>
+</div>
+
+<div class="field">
+  <%= form.label :aux2 %>
+  <%= form.text_field :aux2, id: :user_aux2 %>
+</div>
+
+<div class="field">
+  <%= form.label :aux3 %>
+  <%= form.text_field :aux3, id: :user_aux3 %>
+</div> -->

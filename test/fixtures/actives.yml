@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  event: one
+  status: false
+  obs: MyString
+
+two:
+  user: two
+  event: two
+  status: false
+  obs: MyString
