@@ -23,8 +23,4 @@ Things you may want to cover:
 
 * ...
 
-<!-- Rails Commands -->
-
- reload! in the Rails Console reloads the DB.
-
  
