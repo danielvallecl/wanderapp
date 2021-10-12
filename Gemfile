@@ -12,7 +12,7 @@ gem 'bcrypt', '~> 3.1.11'
 # Use postgresql as the database for Active Record
 gem 'pg', '1.1.4'
 # Use Puma as the app server
-gem 'puma', '~> 3.7'
+gem 'puma', '~> 4.3'
 # Bootstrap
 gem 'bootstrap', '~> 4.0.0'
 # Popper
